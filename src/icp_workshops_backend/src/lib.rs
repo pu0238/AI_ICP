@@ -35,8 +35,6 @@ async fn translate(text: String) -> Result<String, String> {
         (1_603_112_800 + text.len() * 400).try_into().unwrap()
     ).await.map_err(|error| format!("Error while querying data. Status: {:?}, Error: {}", error.0, error.1))?;
 
-    println!("123 {:?}", res);
-
     let formated_res: (Response,) = serde_json::from_slice(&res.0.body).map_err(|error| format!("Error while parsing data. Error: {}", error))?;
     Ok(formated_res.0.translation_text)
 }
